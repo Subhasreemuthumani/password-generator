@@ -1,0 +1,95 @@
+<html>
+<head>
+    <title>Password Strength Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .criteria {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .criteria span {
+            display: block;
+            margin: 4px 0;
+        }
+
+        .green { color: green; }
+        .orange { color: orange; }
+        .red { color: red; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Password Strength Checker</h2>
+        <form method="POST">
+            <label for="password">Enter Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button class="btn" type="submit">Check Strength</button>
+        </form>
+
+        {% if strength %}
+        <div class="result {{ color }}">
+            Password Strength: {{ strength }}
+        </div>
+
+        <div class="criteria">
+            {% for crit, passed in criteria.items() %}
+            <span class="{{ 'green' if passed else 'red' }}">
+                {{ '✔' if passed else '✖' }} {{ crit }}
+            </span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
